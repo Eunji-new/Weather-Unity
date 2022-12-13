@@ -1,7 +1,5 @@
 # Weather-Unity
-Unity에서 Weather API 사용하기
-
-현재 날씨와 미세먼지 농도 가져오기
+Unity에서 날씨 관련 API 사용하여 현재 날씨와 미세먼지 농도 가져오기
 <br><br>
 
 ## 날씨🌞
@@ -34,12 +32,12 @@ TM좌표를 알고 있다면 3번부터 시작
 
 ## 인증키 넣기
 
-다음과 같이 WeatherManger의 인스펙터값에 맞게 넣어주시면 됩니다.
-- weather_AuthKey - 날씨 인증키
-- TM_serviceID - 개발지원센터 서비스ID(TM좌표변환용)
-- TM_securityKey - 개발지원센터 보안키(TM좌표변환용)
-- dustPos_AuthKey - 미세먼지측정소 인증키
-- dust_AuthKey - 대기오염정보 인증키
+다음과 같이 WeatherManager의 인스펙터값에 맞게 넣어주시면 됩니다.
+- **weather_AuthKey** - 날씨 인증키
+- **TM_serviceID** - 개발지원센터 서비스ID(TM좌표변환용)
+- **TM_securityKey** - 개발지원센터 보안키(TM좌표변환용)
+- **dustPos_AuthKey** - 미세먼지측정소 인증키
+- **dust_AuthKey** - 대기오염정보 인증키
 
 ![image](https://user-images.githubusercontent.com/28985207/207208479-9613670f-ffd1-4f1b-9518-6f9429fce29e.png)
 
