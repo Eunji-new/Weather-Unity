@@ -284,7 +284,7 @@ public class WeatherManager : MonoBehaviour
     {
         JsonData dustPosData = JsonMapper.ToObject(resultsDustPos);
 
-        if (dustPosData["response"]["header"]["resultCode"].ToString() != "00")
+        if (dustPosData["response"]["header"]["resultMsg"].ToString() != "NORMAL_CODE")
         {
             //UIManager.instance.Log("[측정소 위치]API가 정상적으로 호출되지 않음");
             isSuccessAPI = false;
@@ -303,7 +303,7 @@ public class WeatherManager : MonoBehaviour
     {
         JsonData dustData = JsonMapper.ToObject(resultsDust);
 
-        if (dustData["response"]["header"]["resultCode"].ToString() != "00")
+        if (dustData["response"]["header"]["resultMsg"].ToString() != "NORMAL_CODE")
         {
             //UIManager.instance.Log("[미세먼지 수치]API가 정상적으로 호출되지 않음");
             isSuccessAPI = false;
@@ -320,7 +320,7 @@ public class WeatherManager : MonoBehaviour
     string GetDustGrade(string resultsDust)
     {
         JsonData dustData = JsonMapper.ToObject(resultsDust);
-        if (dustData["response"]["header"]["resultCode"].ToString() != "00")
+        if (dustData["response"]["header"]["resultMsg"].ToString() != "NORMAL_CODE")
         {
             //UIManager.instance.Log("[미세먼지 정보]API가 정상적으로 호출되지 않음");
             isSuccessAPI = false;
