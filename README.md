@@ -15,7 +15,7 @@ Unity에서 날씨 공공데이터 API 사용하여 현재 날씨와 미세먼�
 TM좌표를 알고 있다면 3번부터 시작
 <br><br>
 
-1. [개발지원센터](https://sgis.kostat.go.kr/view/index)에서 인증키 신청 -> 서비스ID, 보안 Key를 받는다.
+1. [개발지원센터](https://sgis.kostat.go.kr/developer/html/main.html)에서 인증키 신청 -> 서비스ID, 보안 Key를 받는다.
 ![image](https://user-images.githubusercontent.com/28985207/207206633-d7b63b07-66d5-4c00-8a41-80adcc2d3d26.png)
 
 2. 1에서 받은 Key와 위경도를 입력하여 TM좌표를 얻음
