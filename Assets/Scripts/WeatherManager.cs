@@ -64,8 +64,16 @@ public class TM
 
 public class WeatherManager : MonoBehaviour
 {
+    [Header("위도(lat), 경도(lon)")]
     public float lat = 36f; //위도
     public float lon = 127f; //경도
+
+    [Header("인증키")]
+    public string weather_AuthKey;
+    public string TM_serviceID;
+    public string TM_securityKey;
+    public string dustPos_AuthKey;
+    public string dust_AuthKey;
 
     bool isSuccessAPI = false;
     string ERROR = "error";
@@ -138,9 +146,9 @@ public class WeatherManager : MonoBehaviour
         LatXLonY Grid = dfs_xy_conv(lat, lon);
 
         //초단기 실황 URL
-        string GetWeatherUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=인증키&numOfRows=1000&pageNo=1&dataType=json&base_date=" + currentDate + "&base_time=" + baseTime + "&nx=" + Grid.x.ToString() + "&ny=" + Grid.y.ToString();
+        string GetWeatherUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=" + weather_AuthKey + "&numOfRows=1000&pageNo=1&dataType=json&base_date=" + currentDate + "&base_time=" + baseTime + "&nx=" + Grid.x.ToString() + "&ny=" + Grid.y.ToString();
         //초단기 예보 URL
-        string GetSkyUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=인증키&numOfRows=1000&pageNo=1&dataType=json&base_date=" + currentDate + "&base_time=" + baseTime + "&nx=" + Grid.x.ToString() + "&ny=" + Grid.y.ToString();
+        string GetSkyUrl = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=" + weather_AuthKey + "&numOfRows=1000&pageNo=1&dataType=json&base_date=" + currentDate + "&base_time=" + baseTime + "&nx=" + Grid.x.ToString() + "&ny=" + Grid.y.ToString();
         
         //Debug.Log(GetWeatherUrl);
 
@@ -166,7 +174,7 @@ public class WeatherManager : MonoBehaviour
         DustInfo dust = new DustInfo(ERROR, ERROR);
         
         //accessToken 얻기
-        string GetAccessTokenUrl = "https://sgisapi.kostat.go.kr/OpenAPI3/auth/authentication.json?consumer_key=서비스ID&consumer_secret=보안Key"; //인증키 입력
+        string GetAccessTokenUrl = "https://sgisapi.kostat.go.kr/OpenAPI3/auth/authentication.json?consumer_key=" + TM_serviceID + "&consumer_secret=" + TM_securityKey; //인증키 입력
         string resultsAccessToken = GetJsonResult(GetAccessTokenUrl); //access Token 정보 json(TM좌표 변환에 사용)
         string accessToken = GetAccessToken(resultsAccessToken);
 
@@ -178,14 +186,14 @@ public class WeatherManager : MonoBehaviour
         if (tm.x == ERROR || tm.y == ERROR) return dust;
 
         //TM좌표로 제일가까운 측정소 이름 얻기
-        string GetDustPosUrl = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?tmX=" + tm.x + "&tmY=" + tm.y + "&returnType=json&serviceKey=인증키";
+        string GetDustPosUrl = "http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?tmX=" + tm.x + "&tmY=" + tm.y + "&returnType=json&serviceKey=" + dustPos_AuthKey;
         string resultsDustPos = GetJsonResult(GetDustPosUrl); //미세먼지 측정소 정보 json(미세먼지 측정에 사용)
         string dustPos = GetDustPos(resultsDustPos);
 
         if (dustPos == ERROR) return dust;
 
         //측정소 이름으로 미세먼지 정보 얻기
-        string GetDustUrl = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=" + dustPos + "&dataTerm=daily&pageNo=1&numOfRows=10000&returnType=json&serviceKey=인증키";
+        string GetDustUrl = "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=" + dustPos + "&dataTerm=daily&pageNo=1&numOfRows=10000&returnType=json&serviceKey=" + dust_AuthKey;
         string resultsDust = GetJsonResult(GetDustUrl); //미세먼지 정보 json
 
         dust.value = GetDustValue(resultsDust);
